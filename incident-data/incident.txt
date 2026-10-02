@@ -1,0 +1,65 @@
+===== PODS =====
+NAME                             READY   STATUS             RESTARTS        AGE
+demo-app-664d6bd74c-wbblp        1/1     Running            3 (3h47m ago)   47h
+demo-app-85f87ff75c-4kxbc        0/1     Error              17 (6m1s ago)   67m
+demo-app-85f87ff75c-p5b6s        0/1     CrashLoopBackOff   16 (2m6s ago)   66m
+log-generator-84777dfbf9-l5fmp   1/1     Running            0               70m
+
+===== EVENTS =====
+LAST SEEN   TYPE      REASON         OBJECT                               MESSAGE
+50m         Normal    Started        pod/demo-app-85f87ff75c-4kxbc        Container started
+49m         Normal    Started        pod/demo-app-85f87ff75c-p5b6s        Container started
+35m         Warning   NodeNotReady   pod/demo-app-664d6bd74c-wbblp        Node is not ready
+35m         Warning   NodeNotReady   pod/log-generator-84777dfbf9-l5fmp   Node is not ready
+11m         Normal    Created        pod/demo-app-85f87ff75c-4kxbc        Container created
+8m8s        Normal    Pulled         pod/demo-app-85f87ff75c-p5b6s        Container image "busybox:1.36" already present on machine and can be accessed by the pod
+7m34s       Normal    Created        pod/demo-app-85f87ff75c-p5b6s        Container created
+92s         Warning   BackOff        pod/demo-app-85f87ff75c-4kxbc        Back-off restarting failed container app in pod demo-app-85f87ff75c-4kxbc_incident-demo(e4b5dd68-6213-4764-beee-2932971661e2)
+76s         Normal    Pulled         pod/demo-app-85f87ff75c-4kxbc        Container image "busybox:1.36" already present on machine and can be accessed by the pod
+62s         Warning   BackOff        pod/demo-app-85f87ff75c-p5b6s        Back-off restarting failed container app in pod demo-app-85f87ff75c-p5b6s_incident-demo(1b07f661-7cff-4bb9-bd41-0c7e2f8eead7)
+
+===== LOGS =====
+Found 3 pods, using pod/demo-app-664d6bd74c-wbblp
+Error from server: Get "https://10.89.0.2:10250/containerLogs/incident-demo/demo-app-664d6bd74c-wbblp/app": net/http: TLS handshake timeout
+
+===== DESCRIBE =====
+Name:                   demo-app
+Namespace:              incident-demo
+CreationTimestamp:      Tue, 29 Sep 2026 16:13:27 +0530
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 2
+Selector:               app=demo-app
+Replicas:               2 desired | 2 updated | 3 total | 2 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=demo-app
+  Containers:
+   app:
+    Image:      busybox:1.36
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      /bin/sh
+      -c
+      exit 1
+    Limits:
+      cpu:     200m
+      memory:  128Mi
+    Requests:
+      cpu:         50m
+      memory:      32Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  demo-app-664d6bd74c (1/1 replicas created)
+NewReplicaSet:   demo-app-85f87ff75c (2/2 replicas created)
+Events:          <none>
