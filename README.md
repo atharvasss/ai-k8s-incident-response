@@ -1,4 +1,4 @@
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/14f8fb8b-ec92-4a93-93b9-07cd56ee9dfc" /><img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/58e4a0d9-ed70-461e-bd21-dc19d279b282" /># AI-Powered Kubernetes Incident Response Platform
+# AI-Powered Kubernetes Incident Response Platform
 
 **Kubernetes · Python · AI · Prometheus · Grafana · ELK · Ollama**
 
