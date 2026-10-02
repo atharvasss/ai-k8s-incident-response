@@ -30,16 +30,21 @@ Kubernetes Application
 **BREAK → INVESTIGATE → FIX → VERIFY**
 
 <!-- SCREENSHOT: Kubernetes nodes / pods -->
+![Architecture Diagram](docs/s1.png)
 
 <!-- SCREENSHOT: Prometheus / Grafana dashboard -->
+![Architecture Diagram](docs/s2.png)
 
 <!-- SCREENSHOT: CrashLoopBackOff + logs -->
+![Architecture Diagram](docs/s3.png)
 
 <!-- SCREENSHOT: Kibana logs -->
+![Architecture Diagram](docs/s4.png)
 
 <!-- SCREENSHOT: AI-generated incident analysis -->
-
+![Architecture Diagram](docs/s5.png)
 <!-- SCREENSHOT: Recovered / all pods Running -->
+![Architecture Diagram](docs/sfinal.png)
 
 ## Key Learning
 
