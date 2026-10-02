@@ -1,55 +1,41 @@
-# AI-Powered Kubernetes Incident Response Platform
-
-**Kubernetes · Python · AI · Prometheus · Grafana · ELK · Ollama**
-
-An AI-assisted Kubernetes incident response platform designed to turn scattered Kubernetes signals into a structured investigation and remediation workflow.
-
-## Architecture
-
-Kubernetes Application  
-→ Prometheus / Grafana + Elasticsearch / Kibana + Kubernetes Events  
-→ Python Incident Analyzer  
-→ Local LLM (Ollama)  
-→ Root Cause Analysis + Suggested Remediation
-
-<!-- SCREENSHOT: Add architecture diagram here -->
-![Architecture Diagram](docs/digram.png)
-
-
-## What I Built
-
-- Integrated Kubernetes monitoring using Prometheus and Grafana.
-- Centralized application and Kubernetes logs using Elasticsearch and Kibana.
-- Built Python-based incident analysis using Kubernetes logs, events and monitoring data.
-- Integrated a local LLM with Ollama to analyze incidents and suggest remediation.
-- Simulated Kubernetes failures such as `CrashLoopBackOff` and validated the investigation workflow.
-- Tested the complete flow from failure detection → investigation → root cause → recovery.
-
 ## Incident Workflow
 
 **BREAK → INVESTIGATE → FIX → VERIFY**
 
-<!-- SCREENSHOT: Kubernetes nodes / pods -->
-![Architecture Diagram](docs/s1.png)
+The incident workflow demonstrates how a Kubernetes failure is detected, investigated using observability data, analyzed with AI assistance, and verified after recovery.
 
-<!-- SCREENSHOT: Prometheus / Grafana dashboard -->
-![Architecture Diagram](docs/s2.png)
+### 1. Kubernetes Environment
 
-<!-- SCREENSHOT: CrashLoopBackOff + logs -->
-![Architecture Diagram](docs/s3.png)
+The local Kubernetes cluster and application workload running before incident investigation.
 
-<!-- SCREENSHOT: Kibana logs -->
-![Architecture Diagram](docs/s4.png)
+![Kubernetes Cluster](docs/s1.png)
 
-<!-- SCREENSHOT: AI-generated incident analysis -->
-![Architecture Diagram](docs/s5.png)
-<!-- SCREENSHOT: Recovered / all pods Running -->
-![Architecture Diagram](docs/sfinal.png)
+### 2. Observability
 
-## Key Learning
+Prometheus and Grafana provide metrics and cluster-level visibility for identifying abnormal workload behavior.
 
-- Kubernetes incident troubleshooting
-- Observability and centralized logging
-- Python automation and log analysis
-- AI-assisted Root Cause Analysis
-- Production-style incident investigation
+![Prometheus and Grafana](docs/s2.png)
+
+### 3. Incident Detection
+
+A simulated application failure causes the `demo-app` workload to enter `CrashLoopBackOff`, providing a controlled incident for investigation.
+
+![Kubernetes CrashLoopBackOff](docs/s3.png)
+
+### 4. Log Investigation
+
+Application and Kubernetes logs are centralized in Elasticsearch and visualized through Kibana to support incident investigation.
+
+![Kibana Logs](docs/s4.png)
+
+### 5. AI-Assisted Analysis
+
+The Python incident analyzer collects Kubernetes evidence and uses a local Ollama LLM to generate a structured incident analysis and suggested remediation.
+
+![AI Incident Analysis](docs/s5.png)
+
+### 6. Recovery Verification
+
+After remediation, the application returns to a healthy state and all expected workloads are running successfully.
+
+![Recovered Kubernetes Workloads](docs/sfinal.png)
