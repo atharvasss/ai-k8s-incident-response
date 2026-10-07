@@ -1,41 +1,198 @@
-## Incident Workflow
+# GitOps-Based Kubernetes Deployment & Progressive Delivery Platform
 
-**BREAK → INVESTIGATE → FIX → VERIFY**
+**Kubernetes · Argo CD · GitHub Actions · Docker · Helm · Trivy · Prometheus · Grafana · Kibana · AI-Assisted Incident Analysis**
 
-The incident workflow demonstrates how a Kubernetes failure is detected, investigated using observability data, analyzed with AI assistance, and verified after recovery.
+A Kubernetes delivery platform designed to combine GitOps-based deployment with progressive release practices and operational verification.
 
-### 1. Kubernetes Environment
+The project demonstrates how an application can be deployed and monitored in Kubernetes, how abnormal workload behavior can be investigated using observability data, and how recovery can be verified after an incident.
 
-The local Kubernetes cluster and application workload running before incident investigation.
+---
 
-![Kubernetes Cluster](docs/s1.png)
+## Architecture
 
-### 2. Observability
+```text
+Developer Push
+      ↓
+GitHub Actions
+      ↓
+Docker Build
+      ↓
+Trivy Scan
+      ↓
+Container Registry
+      ↓
+Helm
+      ↓
+Argo CD
+      ↓
+Kubernetes
+      ↓
+Progressive Release
+      ↓
+Prometheus + Grafana
+      ↓
+Logs → Kibana
+      ↓
+AI-Assisted Analysis
+      ↓
+Recovery Verification
+```
 
-Prometheus and Grafana provide metrics and cluster-level visibility for identifying abnormal workload behavior.
+The platform separates **application delivery, deployment management, observability, and incident verification**. Argo CD manages the desired Kubernetes state, while monitoring and centralized logs provide operational visibility when the deployed workload does not behave as expected.
 
-![Prometheus and Grafana](docs/s2.png)
+---
 
-### 3. Incident Detection
+## What I Built
 
-A simulated application failure causes the `demo-app` workload to enter `CrashLoopBackOff`, providing a controlled incident for investigation.
+- Created a GitHub Actions workflow for container build and delivery.
+- Added Trivy scanning to identify container security vulnerabilities before deployment.
+- Packaged Kubernetes resources using Helm.
+- Implemented GitOps-based application synchronization using Argo CD.
+- Configured Kubernetes workloads for controlled application releases.
+- Added Prometheus and Grafana for deployment and workload monitoring.
+- Centralized application logs for investigation through Kibana.
+- Simulated a Kubernetes application failure and investigated the resulting incident.
+- Used a local AI-assisted analysis workflow to interpret incident evidence and suggest remediation.
+- Verified application recovery after remediation.
 
-![Kubernetes CrashLoopBackOff](docs/s3.png)
+---
 
-### 4. Log Investigation
+# Deployment & Incident Workflow
 
-Application and Kubernetes logs are centralized in Elasticsearch and visualized through Kibana to support incident investigation.
+**DEPLOY → OBSERVE → DETECT → INVESTIGATE → ANALYZE → RECOVER**
 
-![Kibana Logs](docs/s4.png)
+The screenshots below demonstrate the operational side of the platform: starting with a healthy Kubernetes environment, detecting a workload failure, investigating the available evidence, using AI-assisted analysis, and finally verifying recovery.
 
-### 5. AI-Assisted Analysis
+---
 
-The Python incident analyzer collects Kubernetes evidence and uses a local Ollama LLM to generate a structured incident analysis and suggested remediation.
+## 1. Kubernetes Cluster
 
-![AI Incident Analysis](docs/s5.png)
+The application is deployed into a local Kubernetes environment where the workloads can be managed, monitored, and tested under controlled conditions.
 
-### 6. Recovery Verification
+![Kubernetes Cluster]\(docs/s1.png)
 
-After remediation, the application returns to a healthy state and all expected workloads are running successfully.
+This provides the baseline environment for validating application behavior and simulating deployment-related failures.
 
-![Recovered Kubernetes Workloads](docs/sfinal.png)
+---
+
+## 2. Prometheus & Grafana Monitoring
+
+Prometheus and Grafana provide visibility into the Kubernetes environment and application workload health.
+
+![Prometheus and Grafana]\(docs/s2.png)
+
+Monitoring provides the operational signal needed to identify abnormal behavior and determine when deeper investigation is required.
+
+---
+
+## 3. Incident Detection — CrashLoopBackOff
+
+A controlled application failure is introduced to simulate a real production-style incident.
+
+![Kubernetes CrashLoopBackOff]\(docs/s3.png)
+
+The `demo-app` workload enters `CrashLoopBackOff`, indicating that Kubernetes is repeatedly attempting to start a container that is failing.
+
+This creates a realistic failure scenario for testing the investigation and recovery workflow.
+
+---
+
+## 4. Log Investigation with Kibana
+
+After detecting the workload failure, application and Kubernetes logs are investigated through Kibana.
+
+![Kibana Logs]\(docs/s4.png)
+
+Centralized logs provide additional context beyond Kubernetes pod status, helping identify the underlying behavior responsible for the failure.
+
+---
+
+## 5. AI-Assisted Incident Analysis
+
+The collected incident evidence is passed to the incident-analysis workflow, where a local AI model analyzes the available Kubernetes and application information.
+
+![AI Incident Analysis]\(docs/s5.png)
+
+The analysis provides a structured interpretation of the incident together with potential remediation guidance.
+
+This demonstrates how AI can assist an engineer during investigation without replacing the underlying observability and troubleshooting workflow.
+
+---
+
+## 6. Recovery Verification
+
+After remediation, the Kubernetes workloads return to a healthy state.
+
+![Recovered Kubernetes Workloads]\(docs/sfinal.png)
+
+The final state confirms that the failed workload has recovered and the expected Kubernetes resources are running successfully.
+
+This completes the incident lifecycle:
+
+**DETECT → INVESTIGATE → ANALYZE → REMEDIATE → VERIFY**
+
+---
+
+# Operational Workflow
+
+```text
+                    ┌─────────────────┐
+                    │   Kubernetes    │
+                    │    Workload     │
+                    └────────┬────────┘
+                             ↓
+                    ┌─────────────────┐
+                    │ Prometheus +    │
+                    │ Grafana         │
+                    └────────┬────────┘
+                             ↓
+                       Failure Detected
+                             ↓
+                    ┌─────────────────┐
+                    │ CrashLoopBackOff│
+                    └────────┬────────┘
+                             ↓
+                    ┌─────────────────┐
+                    │ Kibana Logs     │
+                    │ Investigation   │
+                    └────────┬────────┘
+                             ↓
+                    ┌─────────────────┐
+                    │ AI-Assisted     │
+                    │ Analysis        │
+                    └────────┬────────┘
+                             ↓
+                         Remediation
+                             ↓
+                    ┌─────────────────┐
+                    │ Recovery        │
+                    │ Verification    │
+                    └─────────────────┘
+```
+
+---
+
+# Key Learning
+
+- GitOps-based Kubernetes deployment
+- Progressive application delivery
+- Kubernetes workload troubleshooting
+- Prometheus and Grafana monitoring
+- Centralized log investigation with Kibana
+- Container security scanning with Trivy
+- Helm-based Kubernetes packaging
+- Argo CD synchronization
+- AI-assisted incident investigation
+- Kubernetes recovery and verification
+
+---
+
+## Engineering Outcome
+
+The project demonstrates a deployment workflow that does not stop when an application is successfully deployed.
+
+It connects **delivery with operational verification**:
+
+**DEPLOY → OBSERVE → DETECT → INVESTIGATE → ANALYZE → RECOVER**
+
+The result is a more controlled approach to Kubernetes delivery where deployment health can be observed, failures can be investigated using multiple sources of evidence, and recovery can be verified after remediation.
